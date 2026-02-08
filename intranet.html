@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Intranet Envíos</title>
+
+  <!-- ===========================
+       CSS – ESTILOS GENERALES
+       =========================== -->
+  <!-- Aquí SOLO van estilos visuales -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===========================
+       TOPBAR – BARRA SUPERIOR
+       =========================== -->
+  <!-- Contiene saludo y botón cerrar sesión -->
+  <header id="topbar">
+    <div class="topbar-left">
+      <span id="saludoUsuario">👋 Bienvenido</span>
+    </div>
+
+    <div class="topbar-right">
+      <button id="logoutBtn" class="logout-btn">
+        🔒 Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- ===========================
+       CONTENEDOR PRINCIPAL
+       =========================== -->
+  <!-- Aquí luego irá el mapa SVG -->
+  <main id="app">
+
+    <!-- CONTENEDOR DEL MAPA -->
+    <div id="mapa">
+      <!-- AQUÍ PEGAREMOS EL SVG MÁS ADELANTE -->
+    </div>
+
+  </main>
+
+  <!-- ===========================
+       JS – SEGURIDAD / SESIÓN
+       =========================== -->
+  <script>
+    // Verifica que exista sesión
+    const sessionId = localStorage.getItem("sessionId");
+
+    if (!sessionId) {
+      // Si no hay sesión, regresa al login
+      window.location.href = "/IntraNetEX/index.html";
+    }
+  </script>
+
+  <!-- ===========================
+       JS – SALUDO DINÁMICO
+       =========================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const saludo = document.getElementById("saludoUsuario");
+      const nombre = localStorage.getItem("nombre");
+      const rol = localStorage.getItem("rol");
+
+      if (nombre) {
+        saludo.textContent = `👋 Bienvenido ${nombre}`;
+      } else if (rol) {
+        saludo.textContent = `👋 Bienvenido ${rol}`;
+      } else {
+        saludo.textContent = "👋 Bienvenido";
+      }
+    });
+  </script>
+
+  <!-- ===========================
+       JS – CERRAR SESIÓN
+       =========================== -->
+  <script>
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("sessionId");
+      localStorage.removeItem("rol");
+      localStorage.removeItem("nombre");
+      window.location.href = "/IntraNetEX/index.html";
+    });
+  </script>
+
+</body>
+</html>
