@@ -1,90 +1,69 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Intranet Envíos</title>
+/* ===========================
+   RESET + FONDO
+   =========================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
 
-  <!-- ===========================
-       CSS – ESTILOS GENERALES
-       =========================== -->
-  <!-- Aquí SOLO van estilos visuales -->
-  <link rel="stylesheet" href="style.css">
-</head>
+/* ===========================
+   TOPBAR – MATRIX STYLE
+   =========================== */
+#topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
 
-<body>
+  width: 100%;
+  height: 56px;
 
-  <!-- ===========================
-       TOPBAR – BARRA SUPERIOR
-       =========================== -->
-  <!-- Contiene saludo y botón cerrar sesión -->
-  <header id="topbar">
-    <div class="topbar-left">
-      <span id="saludoUsuario">👋 Bienvenido</span>
-    </div>
+  background: #000;
+  border-bottom: 2px solid #00ff00;
 
-    <div class="topbar-right">
-      <button id="logoutBtn" class="logout-btn">
-        🔒 Cerrar sesión
-      </button>
-    </div>
-  </header>
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  <!-- ===========================
-       CONTENEDOR PRINCIPAL
-       =========================== -->
-  <!-- Aquí luego irá el mapa SVG -->
-  <main id="app">
+  padding: 0 24px;
+  box-sizing: border-box;
 
-    <!-- CONTENEDOR DEL MAPA -->
-    <div id="mapa">
-      <!-- AQUÍ PEGAREMOS EL SVG MÁS ADELANTE -->
-    </div>
+  z-index: 1000;
 
-  </main>
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.4);
+}
 
-  <!-- ===========================
-       JS – SEGURIDAD / SESIÓN
-       =========================== -->
-  <script>
-    // Verifica que exista sesión
-    const sessionId = localStorage.getItem("sessionId");
+/* Saludo */
+.topbar-left {
+  color: #00ff00;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(0, 255, 0, 0.6);
+}
 
-    if (!sessionId) {
-      // Si no hay sesión, regresa al login
-      window.location.href = "/IntraNetEX/index.html";
-    }
-  </script>
+/* Botón cerrar sesión */
+.logout-btn {
+  background: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  <!-- ===========================
-       JS – SALUDO DINÁMICO
-       =========================== -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const saludo = document.getElementById("saludoUsuario");
-      const nombre = localStorage.getItem("nombre");
-      const rol = localStorage.getItem("rol");
+.logout-btn:hover {
+  background: #00ff00;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
 
-      if (nombre) {
-        saludo.textContent = `👋 Bienvenido ${nombre}`;
-      } else if (rol) {
-        saludo.textContent = `👋 Bienvenido ${rol}`;
-      } else {
-        saludo.textContent = "👋 Bienvenido";
-      }
-    });
-  </script>
-
-  <!-- ===========================
-       JS – CERRAR SESIÓN
-       =========================== -->
-  <script>
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      localStorage.removeItem("sessionId");
-      localStorage.removeItem("rol");
-      localStorage.removeItem("nombre");
-      window.location.href = "/IntraNetEX/index.html";
-    });
-  </script>
-
-</body>
-</html>
+/* ===========================
+   CONTENIDO
+   =========================== */
+#app {
+  padding-top: 72px; /* espacio para la topbar */
+}
